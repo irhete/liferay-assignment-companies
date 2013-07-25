@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nortal.assignment.companymanagement.model.Address;
 import com.nortal.assignment.companymanagement.model.Company;
 
 @Repository
@@ -17,7 +18,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 
 	@Override
 	public void saveCompany(Company company) {
-		sessionFactory.getCurrentSession().save(company);
+		sessionFactory.getCurrentSession().saveOrUpdate(company);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -32,6 +33,11 @@ public class CompanyDAOImpl implements CompanyDAO {
 	public Company getCompany(long id) {
 		return (Company) sessionFactory.getCurrentSession().get(Company.class,
 				id);
+	}
+
+	@Override
+	public void addAddress(Address address) {
+		sessionFactory.getCurrentSession().saveOrUpdate(address);
 	}
 
 }

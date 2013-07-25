@@ -53,6 +53,13 @@ public class Company implements Serializable {
 		this.year = year;
 	}
 
+	public Company(long id, String name, String description, int year) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.year = year;
+	}
+
 	public Company() {
 	}
 
@@ -93,13 +100,17 @@ public class Company implements Serializable {
 		this.id = id;
 	}
 
-	@XmlTransient
-	public List<Address> getAddresses() {
-		return addresses;
+	@XmlElement
+	public Addresses getAddresses() {
+		return new Addresses(addresses);
 	}
 
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
+	public void setAddresses(Addresses addresses) {
+		this.addresses = addresses.getAddresses();
+	}
+
+	public void addAddress(Address address) {
+		addresses.add(address);
 	}
 
 }

@@ -1,14 +1,13 @@
 package com.nortal.assignment.companymanagement.service;
 
-import java.util.List;
-
+import com.nortal.assignment.companymanagement.model.Companies;
 import com.nortal.assignment.companymanagement.model.Company;
 
 public interface CompanyManagementService {
 
 	void addCompany(Company company);
 
-	public List<Company> listCompanies();
+	public Companies listCompanies();
 
 	public void editCompany(Company company);
 

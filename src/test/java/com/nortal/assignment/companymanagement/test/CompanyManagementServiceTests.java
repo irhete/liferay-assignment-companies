@@ -47,7 +47,7 @@ public class CompanyManagementServiceTests {
 	public void editCompanyTest() {
 		long id = 2;
 		Mockito.when(companyDAO.getCompany(id)).thenReturn(
-				new Company("Tallinna Kaubamaja", "Selling goods", 1990));
+				new Company(id, "Tallinna Kaubamaja", "Selling goods", 1990));
 		Company company = service.getCompany(id);
 		company.setDescription("new desc");
 		service.editCompany(company);

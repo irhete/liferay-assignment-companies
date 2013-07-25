@@ -1,16 +1,16 @@
 package com.nortal.assignment.companymanagement.controller;
 
-import javax.xml.bind.JAXBException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.nortal.assignment.companymanagement.model.Companies;
 import com.nortal.assignment.companymanagement.model.Company;
 import com.nortal.assignment.companymanagement.service.CompanyManagementService;
 
@@ -24,13 +24,32 @@ public class CompanyManagementController {
 	@RequestMapping(method = RequestMethod.POST, produces = "text/xml", consumes = "text/xml")
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody
-	Company addCompany(@RequestBody Company company) throws JAXBException {
-		// JAXBContext jaxbContext = JAXBContext.newInstance(Company.class);
-		// Unmarshaller jaxbUnMarshaller = jaxbContext.createUnmarshaller();
-		// Company company = (Company) jaxbUnMarshaller
-		// .unmarshal(new StringReader(companyXML));
-		System.out.println(company.getDescription());
+	Company addCompany(@RequestBody Company company) {
 		service.addCompany(company);
+		return company;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, produces = "text/xml")
+	@ResponseStatus(HttpStatus.OK)
+	public @ResponseBody
+	Companies listCompanies() {
+		return service.listCompanies();
+	}
+
+	@RequestMapping(value = "/{companyId}", method = RequestMethod.GET, produces = "text/xml")
+	@ResponseStatus(HttpStatus.OK)
+	public @ResponseBody
+	Company getCompany(@PathVariable long companyId) {
+		return service.getCompany(companyId);
+	}
+
+	@RequestMapping(value = "/{companyId}", method = RequestMethod.POST, produces = "text/xml")
+	@ResponseStatus(HttpStatus.OK)
+	public @ResponseBody
+	Company editCompany(@PathVariable long companyId,
+			@RequestBody Company company) {
+		company.setId(companyId);
+		service.editCompany(company);
 		return company;
 	}
 

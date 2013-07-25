@@ -1,12 +1,11 @@
 package com.nortal.assignment.companymanagement.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nortal.assignment.companymanagement.dao.CompanyDAO;
+import com.nortal.assignment.companymanagement.model.Companies;
 import com.nortal.assignment.companymanagement.model.Company;
 
 @Transactional
@@ -22,13 +21,19 @@ public class CompanyManagementServiceImpl implements CompanyManagementService {
 	}
 
 	@Override
-	public List<Company> listCompanies() {
-		return companyDAO.getCompanies();
+	public Companies listCompanies() {
+		Companies companies = new Companies();
+		companies.setCompanies(companyDAO.getCompanies());
+		return companies;
 	}
 
 	@Override
 	public void editCompany(Company company) {
-		companyDAO.saveCompany(company);
+		Company updateableCompany = companyDAO.getCompany(company.getId());
+		updateableCompany.setName(company.getName());
+		updateableCompany.setDescription(company.getDescription());
+		updateableCompany.setYear(company.getYear());
+		companyDAO.saveCompany(updateableCompany);
 	}
 
 	@Override

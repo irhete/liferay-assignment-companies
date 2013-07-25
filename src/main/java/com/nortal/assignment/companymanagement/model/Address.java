@@ -11,14 +11,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
 
 @Entity
 @Table(name = "address")
 @XmlRootElement
-@XmlType(propOrder = { "id", "street", "building", "city", "country" })
 public class Address implements Serializable {
 	/**
 	 * 
@@ -29,6 +28,7 @@ public class Address implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "my_entity_seq_gen")
 	@SequenceGenerator(name = "my_entity_seq_gen", sequenceName = "address_seq")
 	@Column(name = "id")
+	@XmlElement
 	private long id;
 
 	@ManyToOne
@@ -37,17 +37,32 @@ public class Address implements Serializable {
 	private Company company;
 
 	@Column(name = "street", nullable = false)
+	@XmlElement
 	private String street;
 
 	@Column(name = "building", nullable = false)
+	@XmlElement
 	private int building;
 
 	@Column(name = "city", nullable = false)
+	@XmlElement
 	private String city;
 
 	@Column(name = "country", nullable = false)
+	@XmlElement
 	private String country;
 
+	public Address() {
+	}
+
+	public Address(String street, int building, String city, String country) {
+		this.street = street;
+		this.building = building;
+		this.city = city;
+		this.country = country;
+	}
+
+	@XmlTransient
 	public long getId() {
 		return id;
 	}
@@ -56,6 +71,7 @@ public class Address implements Serializable {
 		this.id = id;
 	}
 
+	@XmlTransient
 	public Company getCompany() {
 		return company;
 	}
@@ -64,6 +80,7 @@ public class Address implements Serializable {
 		this.company = company;
 	}
 
+	@XmlTransient
 	public String getStreet() {
 		return street;
 	}
@@ -72,6 +89,7 @@ public class Address implements Serializable {
 		this.street = street;
 	}
 
+	@XmlTransient
 	public int getBuilding() {
 		return building;
 	}
@@ -80,6 +98,7 @@ public class Address implements Serializable {
 		this.building = building;
 	}
 
+	@XmlTransient
 	public String getCity() {
 		return city;
 	}
@@ -88,6 +107,7 @@ public class Address implements Serializable {
 		this.city = city;
 	}
 
+	@XmlTransient
 	public String getCountry() {
 		return country;
 	}
