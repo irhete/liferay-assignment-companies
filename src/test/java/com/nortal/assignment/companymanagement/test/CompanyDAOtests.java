@@ -36,6 +36,7 @@ public class CompanyDAOtests extends
 	@Test
 	public void listAllCompanies() {
 		List<Company> companies = companyDAO.getCompanies();
+		System.out.println(companies.size());
 		assertEquals("Nortal", companies.get(0).getName());
 	}
 

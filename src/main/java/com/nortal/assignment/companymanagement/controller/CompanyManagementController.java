@@ -3,6 +3,7 @@ package com.nortal.assignment.companymanagement.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,11 +40,12 @@ public class CompanyManagementController {
 	@RequestMapping(value = "/{companyId}", method = RequestMethod.GET, produces = "text/xml")
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody
-	Company getCompany(@PathVariable long companyId) {
+	Company getCompany(@PathVariable long companyId, Model model) {
+		model.addAttribute("movie", "this is default movie");
 		return service.getCompany(companyId);
 	}
 
-	@RequestMapping(value = "/{companyId}", method = RequestMethod.POST, produces = "text/xml")
+	@RequestMapping(value = "/{companyId}", method = RequestMethod.POST, produces = "text/xml", consumes = "text/xml")
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody
 	Company editCompany(@PathVariable long companyId,

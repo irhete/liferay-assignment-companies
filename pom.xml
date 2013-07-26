@@ -35,7 +35,7 @@
 					<stopKey>jettystop</stopKey>
 					<stopPort>10900</stopPort>
 					<useTestScope>true</useTestScope>
-					<webAppSourceDirectory>${basedir}/src/test/webapp</webAppSourceDirectory>
+					<webAppSourceDirectory>${basedir}/src/main/webapp</webAppSourceDirectory>
 					<connectors>
 						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
 							<port>10800</port>

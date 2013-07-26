@@ -8,8 +8,8 @@ import com.nortal.assignment.companymanagement.dao.CompanyDAO;
 import com.nortal.assignment.companymanagement.model.Companies;
 import com.nortal.assignment.companymanagement.model.Company;
 
-@Transactional
 @Service
+@Transactional
 public class CompanyManagementServiceImpl implements CompanyManagementService {
 
 	@Autowired
