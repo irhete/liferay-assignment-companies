@@ -3,6 +3,7 @@ package com.nortal.assignment.companymanagement.dao;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,15 +17,23 @@ public class CompanyDAOImpl implements CompanyDAO {
 
 	@Override
 	public void saveCompany(Company company) {
-		sessionFactory.getCurrentSession().saveOrUpdate(company);
+
+		for (Address address : company.getAddresses().getAddresses()) {
+			address.setCompany(company);
+		}
+		sessionFactory.getCurrentSession().merge(company);
+
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Company> getCompanies() {
-		return sessionFactory.getCurrentSession().createCriteria(Company.class)
-				.list();
-
+		List<Company> companies = sessionFactory
+				.getCurrentSession()
+				.createCriteria(Company.class)
+				.setResultTransformer(
+						CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+		return companies;
 	}
 
 	@Override
@@ -34,8 +43,18 @@ public class CompanyDAOImpl implements CompanyDAO {
 	}
 
 	@Override
-	public void addAddress(Address newAddress) {
-		sessionFactory.getCurrentSession().saveOrUpdate(newAddress);
+	public void saveAddress(Address address) {
+		sessionFactory.getCurrentSession().merge(address);
+	}
+
+	@Override
+	public void deleteAddress(long addressId) {
+		Address address = (Address) sessionFactory.getCurrentSession().get(
+				Address.class, addressId);
+		Company company = getCompany(address.getCompany().getId());
+		company.getAddresses().getAddresses().remove(address);
+		sessionFactory.getCurrentSession().delete(address);
+
 	}
 
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nortal.assignment.companymanagement.dao.CompanyDAO;
+import com.nortal.assignment.companymanagement.model.Address;
 import com.nortal.assignment.companymanagement.model.Companies;
 import com.nortal.assignment.companymanagement.model.Company;
 
@@ -29,16 +30,27 @@ public class CompanyManagementServiceImpl implements CompanyManagementService {
 
 	@Override
 	public void editCompany(Company company) {
-		Company updateableCompany = companyDAO.getCompany(company.getId());
-		updateableCompany.setName(company.getName());
-		updateableCompany.setDescription(company.getDescription());
-		updateableCompany.setYear(company.getYear());
-		companyDAO.saveCompany(updateableCompany);
+		// Company updateableCompany = companyDAO.getCompany(company.getId());
+		// updateableCompany.setName(company.getName());
+		// updateableCompany.setDescription(company.getDescription());
+		// updateableCompany.setYear(company.getYear());
+		// updateableCompany.setAddresses(company.getAddresses());
+		companyDAO.saveCompany(company);
 	}
 
 	@Override
 	public Company getCompany(long id) {
 		return companyDAO.getCompany(id);
+	}
+
+	@Override
+	public void editAddress(Address address) {
+		companyDAO.saveAddress(address);
+	}
+
+	@Override
+	public void deleteAddress(long addressId) {
+		companyDAO.deleteAddress(addressId);
 	}
 
 }

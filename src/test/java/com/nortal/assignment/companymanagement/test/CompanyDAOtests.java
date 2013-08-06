@@ -66,7 +66,7 @@ public class CompanyDAOtests extends
 	public void setCompanyToAddressTest() {
 		Address newAddress = new Address("Leegi", 16, "Tallinn", "Eesti");
 		newAddress.setCompany(companyDAO.getCompanies().get(0));
-		companyDAO.addAddress(newAddress);
+		companyDAO.saveAddress(newAddress);
 		assertEquals(2, companyDAO.getCompanies().get(0).getAddresses()
 				.getAddresses().size());
 	}

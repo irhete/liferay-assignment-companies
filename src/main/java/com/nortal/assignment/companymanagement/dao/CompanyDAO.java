@@ -13,6 +13,8 @@ public interface CompanyDAO {
 
 	Company getCompany(long id);
 
-	void addAddress(Address newAddress);
+	void saveAddress(Address newAddress);
+
+	void deleteAddress(long addressId);
 
 }

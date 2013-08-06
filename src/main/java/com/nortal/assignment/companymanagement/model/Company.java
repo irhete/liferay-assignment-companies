@@ -1,8 +1,10 @@
 package com.nortal.assignment.companymanagement.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,9 +46,9 @@ public class Company implements Serializable {
 	@XmlElement
 	private int year;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "company")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "company", cascade = CascadeType.ALL)
 	@XmlTransient
-	private List<Address> addresses;
+	private List<Address> addresses = new ArrayList<Address>();
 
 	public Company(String name, String description, int year) {
 		this.name = name;
@@ -107,7 +109,9 @@ public class Company implements Serializable {
 	}
 
 	public void setAddresses(Addresses addresses) {
-		this.addresses = addresses.getAddresses();
+		for (Address address : addresses.getAddresses()) {
+			addAddress(address);
+		}
 	}
 
 	public void addAddress(Address address) {
