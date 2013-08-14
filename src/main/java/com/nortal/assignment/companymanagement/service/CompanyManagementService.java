@@ -18,4 +18,6 @@ public interface CompanyManagementService {
 
 	public void deleteAddress(long addressId);
 
+	Address addAddress(Address address);
+
 }

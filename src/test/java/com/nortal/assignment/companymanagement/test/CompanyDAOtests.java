@@ -27,16 +27,15 @@ public class CompanyDAOtests extends
 
 	@Test
 	public void addCompanySuccessfulTest() {
-		Company company = new Company("Tallinna Kaubamaja", "Selling goods",
+		Company company = new Company(2, "Tallinna Kaubamaja", "Selling goods",
 				1990);
 		companyDAO.saveCompany(company);
-		assertEquals(2, company.getId());
+		assertEquals(2, companyDAO.getCompanies().size());
 	}
 
 	@Test
 	public void listAllCompanies() {
 		List<Company> companies = companyDAO.getCompanies();
-		System.out.println(companies.size());
 		assertEquals("Nortal", companies.get(0).getName());
 	}
 
@@ -64,7 +63,7 @@ public class CompanyDAOtests extends
 
 	@Test
 	public void setCompanyToAddressTest() {
-		Address newAddress = new Address("Leegi", 16, "Tallinn", "Eesti");
+		Address newAddress = new Address(2, "Leegi", 16, "Tallinn", "Eesti");
 		newAddress.setCompany(companyDAO.getCompanies().get(0));
 		companyDAO.saveAddress(newAddress);
 		assertEquals(2, companyDAO.getCompanies().get(0).getAddresses()
@@ -73,8 +72,8 @@ public class CompanyDAOtests extends
 
 	@Test
 	public void addAddressesToCompany() {
-		Address newAddress = new Address("Leegi", 16, "Tallinn", "Eesti");
-		Address newAddress2 = new Address("Õismäe", 115, "Tallinn", "Eesti");
+		Address newAddress = new Address(2, "Leegi", 16, "Tallinn", "Eesti");
+		Address newAddress2 = new Address(3, "Õismäe", 115, "Tallinn", "Eesti");
 		Company company = companyDAO.getCompanies().get(0);
 		company.addAddress(newAddress);
 		company.addAddress(newAddress2);

@@ -62,6 +62,15 @@ public class Address implements Serializable {
 		this.country = country;
 	}
 
+	public Address(int id, String street, int building, String city,
+			String country) {
+		this.id = id;
+		this.street = street;
+		this.building = building;
+		this.city = city;
+		this.country = country;
+	}
+
 	@XmlTransient
 	public long getId() {
 		return id;

@@ -99,7 +99,6 @@ public class Company implements Serializable {
 	}
 
 	public void setId(long id) {
-		System.out.println(id);
 		this.id = id;
 	}
 

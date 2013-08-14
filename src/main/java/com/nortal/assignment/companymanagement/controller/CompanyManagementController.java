@@ -61,6 +61,15 @@ public class CompanyManagementController {
 		return company;
 	}
 
+	@RequestMapping(value = "/{companyId}/addresses", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public @ResponseBody
+	Address addAddress(@PathVariable long companyId,
+			@RequestBody Address address) {
+		address.setCompany(service.getCompany(companyId));
+		return service.addAddress(address);
+	}
+
 	@RequestMapping(value = "/{companyId}/addresses/{addressId}", method = RequestMethod.POST, produces = {
 			"text/xml", "application/xml" }, consumes = { "text/xml",
 			"application/xml" })
@@ -76,7 +85,7 @@ public class CompanyManagementController {
 
 	@RequestMapping(value = "/{companyId}/addresses/{addressId}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.OK)
-	public void editAddress(@PathVariable long addressId) {
+	public void deleteAddress(@PathVariable long addressId) {
 		service.deleteAddress(addressId);
 	}
 

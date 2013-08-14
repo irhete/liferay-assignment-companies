@@ -53,4 +53,10 @@ public class CompanyManagementServiceImpl implements CompanyManagementService {
 		companyDAO.deleteAddress(addressId);
 	}
 
+	@Override
+	public Address addAddress(Address address) {
+		companyDAO.saveAddress(address);
+		return address;
+	}
+
 }

@@ -40,7 +40,7 @@ public class CompanyManagementControllerTests extends
 	@Before
 	public void setUp() {
 		request.addHeader("Content-Type", "text/xml");
-		request.addHeader("Accept", "text/xml");
+		request.addHeader("Accept", "application/xml, text/xml");
 		request.setRequestURI("/companies");
 	}
 
